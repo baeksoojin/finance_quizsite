@@ -56,4 +56,4 @@ df['name'] = pd.DataFrame(word_name)
 df['meaning'] = pd.DataFrame(list_meaning)
 print(df)
 
-df.to_csv('단어사전크롤링.csv')
+df.to_csv('C:\\project\\finance\\data\\단어사전크롤링.csv',index=False)
