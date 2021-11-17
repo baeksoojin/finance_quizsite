@@ -1,5 +1,7 @@
 from django.urls import path
 import word.views
+import pandas as pd
+import random
 
 app_name = "word"
 
