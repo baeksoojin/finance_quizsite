@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html >
+    <head>
+        <tilte></tilte>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css" >
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+        <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
+    
+    </head>
+
+    <body class="background" style="background-color:rgb(177, 207, 247);" >
+        <script type="text/javascript" src="static/bootstrap/js/bootstrap.js"></script>
+        <div style="height: 132px;"class="top" >
+            <ul class="nav" style="margin-left :5%;">
+              <li class="nav-item">
+                <a style="color: #413141;" class="nav-link" href="{% url 'word:list' %}">단어암기하기</a>
+              </li>
+                <p></p>
+              </ul>
+            <br>
+            
+        </div>
+
+
+        <div style="height: 780px;" class="middle">
+
+
+          {% block content %} 
+          {% endblock %}
+           
+        </div>   
+        
+        
+        <div style="height: 50px;" class="bottom">
+
+            <a style="margin-left: 60px; color: #7D757D;" href="https://github.com/sujin-create"><i class="icon ion-social-github">&nbsp;&nbsp;developer_sujin</i></a>
+                     
+        </div>
+        </div>
+    </body>
+</html>
