@@ -6,7 +6,7 @@ import random
 app_name = "word"
 
 urlpatterns =[
-    path("list",word.views.list, name = "list")
-
+    path("list",word.views.list, name = "list"),
+    path("reset",word.views.reset,name="reset")
 ]
 

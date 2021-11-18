@@ -29,16 +29,24 @@
     </thead>
     <tbody style="color :rgb(4, 2, 17)">
         <!-- <p>{{ht_board}}</p> -->
-        {% for name,meaning in data%}
+        {% for data in all_word_board%}
         <tr>            
-            <td>{{name}}</td>
-            <td style="color: royalblue;">{{meaning}}</td>
+            <td>{{data.name}}</td>
+            <td style="color: royalblue;">{{data.meaning}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
+<form name = "form" method = "POST" action = "{% url 'word:reset' %}" enctype="multipart/form-data" >
+    {% csrf_token %}
 
+    <p></p>
+    <div class="text-center">
+        <input class="btn btn-primary btn-sm" type ="submit" value="reset">
+    </div>
+    
+</form>
 
 
 {% endblock %} 
