@@ -44,6 +44,17 @@
     <p></p>
     <div class="text-center">
         <input class="btn btn-primary btn-sm" type ="submit" value="reset">
+        
+    </div>
+    
+</form>
+<form name = "form" method = "POST" action = "{% url 'word:quiz' %}" enctype="multipart/form-data" >
+    {% csrf_token %}
+
+    <p></p>
+    <div class="text-center">
+        <input class="btn btn-primary btn-sm" type ="submit" value="quiz">
+        
     </div>
     
 </form>

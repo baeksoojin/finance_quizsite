@@ -1,0 +1,13 @@
+<h>quiz</h>
+<p></p>
+
+
+{% for data in random_choice%}    
+    
+    <h style = "color: blueviolet;">{{data.meaning}}</h>
+
+        {% for data2 in random_choice %}
+            <p>{{data2.name}}</p>
+        {% endfor %}
+
+{% endfor %}

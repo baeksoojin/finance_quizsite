@@ -50,3 +50,18 @@ def list(request):
     # res_data['data']=data
 
     return render(request, 'word/word_list.html',res_data)
+
+
+
+def quiz(request):
+
+    if request.method == "POST":
+        word = WORD
+
+        all_word_board = word.objects.all()
+        res_data={}
+        res_data['random_choice'] = all_word_board.order_by('-id')[:5]
+
+        return render(request, 'word/quiz.html',res_data)
+    else:
+        return redirect('/word/list')
