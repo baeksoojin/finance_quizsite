@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib import admin
 import word.views
 import pandas as pd
 import random

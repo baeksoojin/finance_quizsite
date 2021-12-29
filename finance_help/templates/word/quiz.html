@@ -1,13 +1,88 @@
-<h>quiz</h>
-<p></p>
+
+<div id="title">quiz</div>
+<ul>
+    <li class = "alternative">-</li>
+    <li class = "alternative">-</li>
+    <li class = "alternative">-</li>
+    <li class = "alternative">-</li>
+    <li class = "alternative">-</li>
+</ul>
+<button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175);"> Submit </button>
 
 
-{% for data in random_choice%}    
-    
-    <h style = "color: blueviolet;">{{data.meaning}}</h>
+<script>
 
-        {% for data2 in random_choice %}
-            <p>{{data2.name}}</p>
-        {% endfor %}
 
-{% endfor %}
+            
+    console.log('script1작동');
+
+    let word_quiz = JSON.parse("{{ random_js | escapejs }}");
+
+
+    console.log(word_quiz);
+    function showQuestion(q){
+        //select dom element
+        let titleDiv = document.getElementById('title');
+
+        //modify it
+        titleDiv.textContent = q.question;
+
+
+        //.alternative -> alternative class에 적용
+        let alts = document.querySelectorAll(".alternative")
+        console.log(alts);
+        alts.forEach(function(element,index){
+
+            let choice;
+
+            if( index == 0)
+            {
+                element.textContent = q.one;
+                choice = q.one;
+            }
+            if( index == 1)
+            {
+                element.textContent = q.two;
+                choice = q.two;
+            }
+            if( index == 2)
+            {
+                element.textContent = q.three;
+                choice = q.three;
+            }
+            if( index == 3)
+            {
+                element.textContent = q.four;
+                choice = q.four;
+            }
+            if( index == 4)
+            {
+                element.textContent = q.five;
+                choice = q.five;
+            }
+            
+            element.addEventListener('click',function(){
+                //check correct answer
+                console.log("here");
+                console.log(choice);
+                if(q.answer == choice)
+                {
+                    console.log('correct!');
+                }
+                else{
+                    console.log('wrong!');
+                }
+            });
+
+        });
+
+
+
+    }
+
+  
+    showQuestion(word_quiz[0].fields);
+
+
+</script>
+   
