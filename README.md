@@ -8,4 +8,5 @@
  ### 2. 5개를 무작위로 사용자에게 보여줌
  [데이터 보여주기 (2)](https://get-it-withbsj.tistory.com/m/99)
  
- 
+ ### 3. 사용자에 의해 단어 5개 reset
+ [reset버튼으로 단어 5개 바꾸기 (3)](https://get-it-withbsj.tistory.com/m/100)
