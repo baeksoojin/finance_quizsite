@@ -1,5 +1,6 @@
 
 <div id="title">quiz</div>
+
 <ul>
     <li class = "alternative">-</li>
     <li class = "alternative">-</li>
@@ -7,20 +8,26 @@
     <li class = "alternative">-</li>
     <li class = "alternative">-</li>
 </ul>
+
 <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175);"> Submit </button>
 
 
 <script>
 
-
-            
     console.log('script1작동');
 
     let word_quiz = JSON.parse("{{ random_js | escapejs }}");
-
-
     console.log(word_quiz);
+    
+    //점수 counting 변수
+    let score=0, page = 0, isTrue=false;
+
+    //button
+    const submitButton = document.getElementById('submit_button');
+
+    
     function showQuestion(q){
+        
         //select dom element
         let titleDiv = document.getElementById('title');
 
@@ -61,17 +68,24 @@
                 choice = q.five;
             }
             
+            
             element.addEventListener('click',function(){
                 //check correct answer
-                console.log("here");
+                console.log("check");
                 console.log(choice);
                 if(q.answer == choice)
                 {
-                    console.log('correct!');
+                    
+                    isTrue = true;
+                    console.log(isTrue);
+                    
                 }
                 else{
-                    console.log('wrong!');
+                    
+                    isTrue = false;
+                    console.log(isTrue);
                 }
+                
             });
 
         });
@@ -80,8 +94,46 @@
 
     }
 
-  
-    showQuestion(word_quiz[0].fields);
+
+    const submit = ()=>{
+                
+                //check score
+                console.log("score");
+                if(isTrue == true)
+                {
+                    score++;
+                    console.log(isTrue);
+                    console.log(score);
+                }
+                else{
+                    console.log(isTrue);
+                    console.log(score);
+                }
+                page = page+1;
+                if(page==5)
+                {
+                    alert(score+"개 정답");
+                }
+                else{
+                    console.log('page:',page);
+                    showQuestion(word_quiz[page].fields);
+                }
+                
+
+
+    };
+
+    if(page==0)
+    {
+        showQuestion(word_quiz[page].fields);
+    }
+    
+
+    //EventListeners
+    submitButton.addEventListener('click',submit);
+    
+    
+   
 
 
 </script>

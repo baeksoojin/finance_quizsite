@@ -64,8 +64,13 @@ def quiz(request):
         word_board = all_word_board.order_by('-id')[:5]
 
         list=[]
+        word_index=[]
+        num = random.randrange(0,5)
         for i in range(0,5):
-            list.append(word_board[i].name)
+            while num in word_index:
+                num = random.randrange(0,5)
+            word_index.append(num)
+            list.append(word_board[word_index[i]].name)
         
         quiz_word = QUIZ
         for i in range(0,len(list)):
@@ -75,7 +80,7 @@ def quiz(request):
         quiz_data =quiz_word.objects.all()
 
         if quiz_data:
-            quiz_board = quiz_data.order_by('-id')[:1]
+            quiz_board = quiz_data.order_by('-id')[:5]
 
             res_data={
             "random_choice": quiz_board,
