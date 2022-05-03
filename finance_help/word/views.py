@@ -1,53 +1,44 @@
-from django.db import reset_queries
 from django.shortcuts import render, redirect
 import random
 import sys
 sys.path.append('C:\\project\\finance\\finance_help\\word')
-from get_data import get_data
 from word.models import WORD,QUIZ
-
-
-# def test():
-#     #get_data함수에 대한 test
-#     print("test중\n",get_data())
-
-# test()
-
-def reset(request):
-
-    if request.method == "POST":
-        data = get_data()
-
-        word_board = WORD
-
-        for i in range(0,len(data)):
-            word_board(name = data[i][0], meaning = data[i][1]).save()
-
-        return redirect("/word/list")
-
-    else:
-        render(request,'word/word_list.html')
-
-
+from .crawling import crawling
+from django.db.models import Max
 
 
 def list(request):
-
-        
+    word_board = WORD
     res_data={}
-    word = WORD
-    
-    if not word.objects.all():
-        data = get_data()
-        for i in range(0,len(data)):
-            word(name = data[i][0], meaning = data[i][1]).save()
-    
-    if word.objects.all():
-        all_word_board = word.objects.all()
-        res_data['all_word_board'] = all_word_board.order_by('-id')[:5]
+    data=[]
+    if request.method == "POST":
 
+        # max_id=word_board.objects.all().aggregate(max_id=Max("id"))['max_id']
+        # for i in range(0,5):
+        #     pk = random.randint(1,max_id)
+        #     data.append(word_board.objects.get(pk=pk))
+        # res_data['all_word_board'] = data
+        
+        # django random 정렬 -> ?를 사용할 수 있는데 이것은 아래의 두줄로 위의 5줄을 커버가능.
 
-    return render(request, 'word/word_list.html',res_data)
+        all_word_board = word_board.objects.all()
+        res_data['all_word_board'] = all_word_board.order_by('?')[:5]
+        return render(request,'word/word_list.html',res_data)
+    else:
+        
+        if not word_board.objects.all():
+            datas = crawling()
+            
+            print(len(datas['name']))
+            for i in range(0,len(datas['name'])):
+                print(datas['name'][i])
+                print(datas['meaning'][i])
+                word_board(name = datas['name'][i], meaning = datas['meaning'][i]).save()
+        
+        if word_board.objects.all():
+            all_word_board = word_board.objects.all()
+            res_data['all_word_board'] = all_word_board.order_by('-id')[:5]
+        return render(request, 'word/word_list.html',res_data)
 
 
 from django.core import serializers
