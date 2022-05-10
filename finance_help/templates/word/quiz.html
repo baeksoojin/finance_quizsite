@@ -1,140 +1,137 @@
+{% extends 'main/base.html' %}  
+{% block content %}
 
-<div id="title">quiz</div>
+<h3 style = "text-align: center;"> TEST </h3>
 
-<ul>
-    <li class = "alternative">-</li>
-    <li class = "alternative">-</li>
-    <li class = "alternative">-</li>
-    <li class = "alternative">-</li>
-    <li class = "alternative">-</li>
-</ul>
+<style>
+    .table{
+        width :1000px;
+        text-align: center;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .form-group{
+        width : 250px;
+        font-size: medium;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 
-<button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175);"> Submit </button>
+<div style="text-align: center;">
+    
+    <div id="question">question</div>
 
+    {% for data in quiz_data %}
+    <label><li  type="radio" name = "option" class = "option">{{data.name}}</li></label><br>
+    {% endfor %}
+    <button id="next_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Next </button>
+    
+    <form name = "form" method = "POST" action = "{% url 'word:result' %}" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-group">
+            <input id = "result" type = "hidden" name= "result" type="text" name="result" >
+        </div>
+        <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Submit </button>
+    </form>
+
+</div>
 
 <script>
 
-    console.log('script1작동');
-
-    let word_quiz = JSON.parse("{{ random_js | escapejs }}");
+    let word_quiz = JSON.parse("{{ quiz_js | escapejs }}");
     console.log(word_quiz);
-    
+
     //점수 counting 변수
     let score=0, page = 0, isTrue=false;
+    let check="no"; //색상구분을 위해 check를 기록
 
     //button
+    const nextButton = document.getElementById('next_button');
     const submitButton = document.getElementById('submit_button');
-
     
-    function showQuestion(q){
+    submitButton.style.display = 'none';
+    
+    //result input
+    const inputResult = document.getElementById('result');
+
+    const selectAns = (q) => {
+
+        //퀴즈 문제
+        let question = document.getElementById('question');
+        question.textContent = q.meaning;
+
         
-        //select dom element
-        let titleDiv = document.getElementById('title');
+        let answer = q.name //정답을 answer 변수에 담음
 
-        //modify it
-        titleDiv.textContent = q.question;
+        let options = document.querySelectorAll(".option");
+        options.forEach(function(element,index){
+            if(check !="no"){
+                check.style.color="black";
+            }
 
-
-        //.alternative -> alternative class에 적용
-        let alts = document.querySelectorAll(".alternative")
-        console.log(alts);
-        alts.forEach(function(element,index){
-
-            let choice;
-
-            if( index == 0)
-            {
-                element.textContent = q.one;
-                choice = q.one;
-            }
-            if( index == 1)
-            {
-                element.textContent = q.two;
-                choice = q.two;
-            }
-            if( index == 2)
-            {
-                element.textContent = q.three;
-                choice = q.three;
-            }
-            if( index == 3)
-            {
-                element.textContent = q.four;
-                choice = q.four;
-            }
-            if( index == 4)
-            {
-                element.textContent = q.five;
-                choice = q.five;
-            }
-            
-            
             element.addEventListener('click',function(){
-                //check correct answer
-                console.log("check");
+                
+                // 가장 최신으로 고른 하나의 elemen만 파란색으로 하기 위해 나머지는 다 검정색
+                if(check== "no" || check!=index){
+                    console.log(check);
+                    if(check == "no")
+                        console.log("no");
+                    else{check.style.color = "black";}
+                }
+                check=element;
+                console.log(check);
+                // 선택한 element의 name을 choice로 옮김
+                choice = word_quiz[index].fields.name;
                 console.log(choice);
-                if(q.answer == choice)
+                // 선택한 element를 blue 색상으로 바꾸기
+                element.style.color = "blue";
+                console.log("here");
+                
+                if(answer == choice)
                 {
-                    
                     isTrue = true;
-                    console.log(isTrue);
-                    
+                    console.log('correct!');
                 }
                 else{
-                    
                     isTrue = false;
-                    console.log(isTrue);
+                    console.log('wrong!');
                 }
-                
             });
-
-        });
-
-
+            
+        })
 
     }
 
+    const submit = () => {
 
-    const submit = ()=>{
-                
-                //check score
-                console.log("score");
-                if(isTrue == true)
-                {
-                    score++;
-                    console.log(isTrue);
-                    console.log(score);
-                }
-                else{
-                    console.log(isTrue);
-                    console.log(score);
-                }
-                page = page+1;
-                if(page==5)
-                {
-                    alert(score+"개 정답");
-                }
-                else{
-                    console.log('page:',page);
-                    showQuestion(word_quiz[page].fields);
-                }
-                
-
-
-    };
-
-    if(page==0)
-    {
-        showQuestion(word_quiz[page].fields);
+            console.log("score");
+            if(isTrue == true)
+                score++;
+            page++;
+            console.log(page,score);
+            if(page==5)
+            {
+                //input값에 전송할 result값 저장
+                inputResult.value = score;
+                nextButton.style.display = 'none';
+                submitButton.style.display = "block";
+            }
+            else{
+                console.log('page:',page);
+                selectAns(word_quiz[page].fields);
+            }
+            
     }
-    
 
-    //EventListeners
-    submitButton.addEventListener('click',submit);
-    
-    
-   
+    if(page==0) selectAns(word_quiz[0].fields);
+    //EventListener
+    nextButton.addEventListener('click',submit);
 
-
+    
 </script>
+
+{% endblock %} 
+
+
    
