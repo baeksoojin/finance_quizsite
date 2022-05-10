@@ -9,15 +9,3 @@ class WORD(models.Model):
 
     class Meta:
         db_table = "WORD_board"
-
-class QUIZ(models.Model):
-    question = models.CharField(max_length=200, verbose_name="퀴즈")
-    one = models.CharField(max_length=30, verbose_name="보기1")
-    two = models.CharField(max_length=30, verbose_name="보기2")
-    three = models.CharField(max_length=30, verbose_name="보기3")
-    four = models.CharField(max_length=30, verbose_name="보기4")
-    five = models.CharField(max_length=30, verbose_name="보기5")
-    answer = models.CharField(max_length=30, verbose_name = "정답")
-
-    class Meta:
-        db_table = "QUIZ_board"

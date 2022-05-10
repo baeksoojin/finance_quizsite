@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import random
 import sys
 sys.path.append('C:\\project\\finance\\finance_help\\word')
-from word.models import WORD,QUIZ
+from word.models import WORD
 from .crawling import crawling
 from django.db.models import Max
 
