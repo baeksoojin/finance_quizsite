@@ -9,3 +9,10 @@ class WORD(models.Model):
 
     class Meta:
         db_table = "WORD_board"
+
+class Wrong(models.Model):
+    quiz = models.ForeignKey(WORD,on_delete=models.CASCADE)
+    create_at   = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "WRONG_borad"

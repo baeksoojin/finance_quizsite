@@ -30,7 +30,8 @@
     <form name = "form" method = "POST" action = "{% url 'word:result' %}" enctype="multipart/form-data" >
         {% csrf_token %}
         <div class="form-group">
-            <input id = "result" type = "hidden" name= "result" type="text" name="result" >
+            <input id = "result" type = "hidden" name= "result" type="text" >
+            <input id = "wrong" type = "hidden" name= "wrong" type="text" >
         </div>
         <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Submit </button>
     </form>
@@ -45,6 +46,7 @@
     //점수 counting 변수
     let score=0, page = 0, isTrue=false;
     let check="no"; //색상구분을 위해 check를 기록
+    const wrong=[];
 
     //button
     const nextButton = document.getElementById('next_button');
@@ -54,13 +56,13 @@
     
     //result input
     const inputResult = document.getElementById('result');
+    const inputWrong = document.getElementById('wrong');
 
     const selectAns = (q) => {
 
         //퀴즈 문제
         let question = document.getElementById('question');
         question.textContent = q.meaning;
-
         
         let answer = q.name //정답을 answer 변수에 담음
 
@@ -96,6 +98,8 @@
                 else{
                     isTrue = false;
                     console.log('wrong!');
+                    wrong[page]=answer;
+                    console.log(wrong[page],page);
                 }
             });
             
@@ -103,11 +107,22 @@
 
     }
 
+    let wrongs=",";
     const submit = () => {
 
             console.log("score");
             if(isTrue == true)
+            {
                 score++;
+            }
+            else{
+                console.log(wrongs);
+                console.log(wrong[page]);
+                console.log(wrongs+wrong[page]+",");
+                wrongs = wrongs+wrong[page]+",";
+                console.log(wrongs);
+            }
+                
             page++;
             console.log(page,score);
             if(page==5)
@@ -116,6 +131,7 @@
                 inputResult.value = score;
                 nextButton.style.display = 'none';
                 submitButton.style.display = "block";
+                inputWrong.value = wrongs;
             }
             else{
                 console.log('page:',page);

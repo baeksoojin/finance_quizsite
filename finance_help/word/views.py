@@ -1,8 +1,9 @@
+from unicodedata import name
 from django.shortcuts import render, redirect
 import random
 import sys
 sys.path.append('C:\\project\\finance\\finance_help\\word')
-from word.models import WORD
+from word.models import WORD,Wrong
 from .crawling import crawling
 from django.db.models import Max
 
@@ -99,6 +100,36 @@ def result(request):
     if request.method == "POST":
 
         result = request.POST["result"]
+        wrongs = request.POST["wrong"]
         print(result)
+        print(wrongs)
 
-        return redirect('/')
+        wrongs=wrongs.strip(",")
+        wrongs=wrongs.split(",")
+        print(wrongs)
+
+        wrong = Wrong()
+        word = WORD
+
+        all_word_board = word.objects.all()
+
+       
+        for i in wrongs:
+            wrong_word = all_word_board.get(name = i)
+            print(wrong_word)
+            wrong.quiz = wrong_word
+            wrong.save()
+
+        #모든 wrong_word board를 10개씩 한페이지에서 출력
+
+        res_data = {}
+        if(result==0):
+            res_data['score'] = "모두 정답입니다><"
+        else:
+            res_data['score'] = result+"개 정답입니다!"
+            res_data['wrongs'] = wrongs
+
+        return render(request,'word/result.html',res_data)
+
+
+# def list 만들어서 위에서 틀린 것들만 저장. redirect해서 list에서 model에 저장하고 한 페이지에 최근 10개 보여주기.
