@@ -19,10 +19,12 @@ python manage.py migrate
 ```
 
 ## 2. 구현현황
-###### 홈페이지
+
+### 홈페이지
 <img width="1512" alt="스크린샷 2022-05-19 오전 3 36 54" src="https://user-images.githubusercontent.com/74058047/169121083-721fd19a-7284-49a5-9fc8-0c800d4dd4a7.png">
 <img width="1512" alt="스크린샷 2022-05-19 오전 3 37 12" src="https://user-images.githubusercontent.com/74058047/169121094-b9c4b0aa-982f-4ecf-82a3-fdb8cf227c88.png">
-###### 단어암기 페이지
+
+### 단어암기 페이지
 <img width="1512" alt="스크린샷 2022-05-19 오전 3 37 28" src="https://user-images.githubusercontent.com/74058047/169121103-1e2bf094-15aa-4b61-a3cf-1fd0cec6dbe8.png">
 - 5개의 금융관련 단어를 랜덤으로 보여줍니다.
 - change 버튼을 누를경우, 새로운 단어들이 제공됩니다.
