@@ -1,7 +1,35 @@
-{% extends 'main/base.html' %}  
+{% extends 'main/base.html' %} 
+{% load static %}
 {% block content %}
 
-<h3 style = "text-align: center;"> TEST </h3>
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="services">
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+  
+          <header class="section-header">
+            <div style="text-align: center;">
+    
+                <div id="question">question</div>
+            
+                {% for data in quiz_data %}
+                <label><li  type="radio" name = "option" class = "option">{{data.name}}</li></label><br>
+                {% endfor %}
+                <button id="next_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Next </button>
+                
+                <form name = "form" method = "POST" action = "{% url 'word:result' %}" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input id = "result" type = "hidden" name= "result" type="text" >
+                        <input id = "wrong" type = "hidden" name= "wrong" type="text" >
+                    </div>
+                    <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Submit </button>
+                </form>
+            
+            </div>
+        </header>
+    </div>
+</section>
 
 <style>
     .table{
@@ -18,25 +46,7 @@
     }
 </style>
 
-<div style="text-align: center;">
-    
-    <div id="question">question</div>
 
-    {% for data in quiz_data %}
-    <label><li  type="radio" name = "option" class = "option">{{data.name}}</li></label><br>
-    {% endfor %}
-    <button id="next_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Next </button>
-    
-    <form name = "form" method = "POST" action = "{% url 'word:result' %}" enctype="multipart/form-data" >
-        {% csrf_token %}
-        <div class="form-group">
-            <input id = "result" type = "hidden" name= "result" type="text" >
-            <input id = "wrong" type = "hidden" name= "wrong" type="text" >
-        </div>
-        <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Submit </button>
-    </form>
-
-</div>
 
 <script>
 

@@ -1,53 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-<!doctype html>
-<html >
-    <head>
-        <tilte></tilte>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css" >
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    </head>
+  <title>HelFin</title>
+  <meta content="" name="description">
 
-    <body class="background" style="background-color:rgb(240, 246, 255);" >
-        <script type="text/javascript" src="static/bootstrap/js/bootstrap.js"></script>
-        <div style="height: 132px;"class="top" >
-            <ul class="nav" style="margin-left :5%;">
-              <li class="nav-item">
-                <a style="color: #413141;" class="nav-link" href="{% url 'word:list' %}">단어암기하기</a>
-              </li>
-                <p></p>
-              </ul>
-            <br>
-            
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href='{% static "/img/favicon.png" %}' rel="icon">
+  <link href='{% static "/img/apple-touch-icon.png" %}' rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href='{% static "vendor/aos/aos.css" %}' rel="stylesheet">
+  <link href='{% static "vendor/bootstrap/css/bootstrap.min.css" %}' rel="stylesheet">
+  <link href='{% static "vendor/bootstrap-icons/bootstrap-icons.css" %}' rel="stylesheet">
+  <link href='{% static "vendor/glightbox/css/glightbox.min.css" %}' rel="stylesheet">
+  <link href='{% static "vendor/remixicon/remixicon.css" %}' rel="stylesheet">
+  <link href='{% static "vendor/swiper/swiper-bundle.min.css" %}' rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href='{% static "css/style.css" %}' rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href='{% url "main:index" %}' class="logo d-flex align-items-center">
+        <img src='{% static "img/logo.png" %}' alt="">
+        <span>FlexStart</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="{% url 'main:index' %}">Home</a></li>
+          <li><a class="nav-link" href="{% url 'word:list' %}">단어암기</a></li>
+          <li class="dropdown"><a href="#"><span>로그인/회원가입</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="">회원가입</a></li>
+              {% if request.session.email %}
+              <li><a href="">로그아웃</a></li>
+              {% else %}
+              <li><a href="">로그인</a></li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+  <div>
+
+
+    {% block content %} 
+    {% endblock %}
+     
+  </div>  
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-info">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <img src='{% static "img/logo.png" %}' alt="">
+              <span>HepFin</span>
+            </a>
+            <p>금린이들을 위한 지식 다지기 사이트</p>
+            <div class="social-links mt-3">
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+            <h4>Contact Us</h4>
+            <p>
+              <strong>Phone:</strong> +82 10 8750 9331<br>
+              <strong>Email:</strong> qortnwls87@gmail.com<br>
+              <strong>Code:</strong><a href="https://github.com/sujin-create/finance_quizsite"> 프로젝트 링크</a>
+            </p>
+
+          </div>
+
         </div>
+      </div>
+    </div>
 
-        </script>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><a href="https://github.com/sujin-create"><span>Baeksujin</span></a></strong>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
 
 
-        
+  <!-- Vendor JS Files -->
+  <script src='{% static "vendor/purecounter/purecounter.js" %}'></script>
+  <script src='{% static "vendor/aos/aos.js" %}'></script>
+  <script src='{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}'></script>
+  <script src='{% static "vendor/glightbox/js/glightbox.min.js" %}'></script>
+  <script src='{% static "vendor/isotope-layout/isotope.pkgd.min.js" %}'></script>
+  <script src='{% static "vendor/swiper/swiper-bundle.min.js" %}'></script>
+  <script src='{% static "vendor/php-email-form/validate.js" %}'></script>
 
-        <div style="height: 780px;" class="middle">
+  <!-- Template Main JS File -->
+  <script src='{% static "js/main.js" %}'></script>
 
-
-          {% block content %} 
-          {% endblock %}
-           
-        </div>   
-        
-        
-        <div style="height: 50px;" class="bottom">
-
-            <a style="margin-left: 60px; color: #7D757D;" href="https://github.com/sujin-create"><i class="icon ion-social-github">&nbsp;&nbsp;developer_sujin</i></a>
-                     
-        </div>
-        </div>
-    </body>
-
-    
+</body>
 
 </html>

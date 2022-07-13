@@ -1,9 +1,6 @@
-{% extends 'main/base.html' %}  
+{% extends 'main/base.html' %}
+{% load static %}
 {% block content %}
-
-<h3 style = "text-align: center;"> 오늘의 단어 </h3>
-<div style="text-align: center;">
-
 
 <style>
     .table{
@@ -19,45 +16,59 @@
         margin-right: auto;
     }
 </style>
+ 
+<section style="padding-top: 150px; padding-bottom: 5px;">
 
-<table class = "table table-hover text-center"  style="color:black;">
-    <thead class="thead-dark">
-        <tr>
-            <td>단어명</td>
-            <td>뜻</td>
-        </tr>
-    </thead>
-    <tbody style="color :rgb(4, 2, 17)">
-        {% for data in random_data%}
-        <tr>            
-            <td>{{data.name}}</td>
-            <td style="color: royalblue;">{{data.meaning}}</td>
-        </tr>
-        {% endfor %}
-        {% if reset_data %}{{ reset_data.1.name }}{% endif %}
-       
-    </tbody>
-</table>
+    <div class="container" data-aos="fade-up" >
 
-<form name = "form" method = "POST" action = "{% url 'word:list' %}" enctype="multipart/form-data" >
-    {% csrf_token %}
+        <header class="section-header">
+        <table class = "table table-hover text-center"  style="color:black;">
+            <thead class="thead-dark">
+                <tr>
+                    <td style="font-size: 30px;"><strong>단어명</strong></td>
+                    <td style="font-size: 30px;"> <strong>뜻</strong></td>
+                </tr>
+            </thead>
+            <tbody style="color :rgb(4, 2, 17)">
+                {% for data in random_data%}
+                <tr>            
+                    <td style="color: #013289">{{data.name}}</td>
+                    <td style="color: rgb(27, 29, 34);">{{data.meaning}}</td>
+                </tr>
+                {% endfor %}
+                {% if reset_data %}{{ reset_data.1.name }}{% endif %}
+                
+            </tbody>
+        </table>
 
-    <p></p>
-    <div class="text-center">
-        <input class="btn btn-primary btn-sm" type ="submit" value="reset">  
-    </div>
-    
-</form>
-<form name = "form" method = "POST" action = "{% url 'word:quiz' %}" enctype="multipart/form-data" >
-    {% csrf_token %}
-
-    <p></p>
-    <div class="text-center">
-        <input class="btn btn-primary btn-sm" type ="submit" value="quiz">
+        <form name = "form" method = "POST" style="color : rgb(4, 2, 17)" action = "{% url 'word:list' %}" enctype="multipart/form-data" >
+            {% csrf_token %}
+        
+            <p></p>
+            <div class="text-center">
+                <input class="btn btn-outline-primary" type ="submit" value="Reset">  
+            </div>
+            
+        </form>
+        <form name = "form"  method = "POST" style="color : rgb(4, 2, 17)" action = "{% url 'word:quiz' %}" enctype="multipart/form-data" >
+            {% csrf_token %}
+        
+            <p></p>
+            <div class="text-center">
+                <input class="btn btn-outline-primary" type ="submit" value="Test">
+                
+            </div>
+            
+        </form>
         
     </div>
-    
-</form>
+    </div>
+</div>
+
+</section>
+
+
+
 
 
 {% endblock %} 
