@@ -112,18 +112,19 @@ def result(request):
         word = WORD
 
         all_word_board = word.objects.all()
-
-       
-        for i in wrongs:
-            wrong_word = all_word_board.get(name = i)
-            print(wrong_word)
-            wrong.quiz = wrong_word
-            wrong.save()
+        
+        if int(result)!=5:
+            print(result)
+            for i in wrongs:
+                wrong_word = all_word_board.get(name = i)
+                print(wrong_word)
+                wrong.quiz = wrong_word
+                wrong.save()
 
         #모든 wrong_word board를 10개씩 한페이지에서 출력
 
         res_data = {}
-        if(result==0):
+        if(int(result)==5):
             res_data['score'] = "모두 정답입니다><"
         else:
             res_data['score'] = result+"개 정답입니다!"
