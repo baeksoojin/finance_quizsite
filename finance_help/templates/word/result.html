@@ -1,40 +1,41 @@
 {% extends 'main/base.html' %}  
 {% block content %}
 
-<h3 style = "text-align: center;"> 체점결과 </h3>
-<div style="text-align: center;">
-
-
 <style>
     .table{
-        width :1000px;
+        width: 50%;
+        height: 70%;
+        padding: 15px 15px;
+        display: flex;
+        justify-content: center;
         text-align: center;
-        margin-left:auto;
-        margin-right:auto;
-    }
-    .form-group{
-        width : 250px;
-        font-size: medium;
-        margin-left: auto;
-        margin-right: auto;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        color : black;
+        border-radius: 10px;
+        margin :auto;
+
     }
 </style>
 
-<table class = "table table-hover text-center"  style="color:black;">
-    <thead class="thead-dark">
-        <tr>
-            <td>체점결과</td>
-            <td>틀린단어</td>
-        </tr>
-    </thead>
-    <tbody style="color :rgb(4, 2, 17)">
-        <tr>            
-            <td>{{score}}</td>
-            <td style="color: royalblue;">{{wrongs}}</td>
-        </tr>
-       
-    </tbody>
-</table>
+
+<div style=" text-align: center; align-items: center;">
+    <h3 style="margin-top: 20%;">채점결과</h3>
+    <table class = "table table-hover text-center"  style="color:black; margin-bottom: 20%;">
+        <thead>
+            <tr>
+                <td><strong>틀린단어</strong></td>
+            </tr>
+        </thead>
+        <tbody style="color :rgb(4, 2, 17)">
+            <tr>            
+                <td style="color: royalblue;">{{wrongs}}</td>
+            </tr>
+        
+        </tbody>
+    </table>
+</div>
 
 <!-- 다시 풀기 버튼 누르기 -->
 
