@@ -20,8 +20,8 @@
                 <form name = "form" method = "POST" action = "{% url 'word:result' %}" enctype="multipart/form-data" >
                     {% csrf_token %}
                     <div class="form-group">
-                        <input id = "result" type = "hidden" name= "result" type="text" >
-                        <input id = "wrong" type = "hidden" name= "wrong" type="text" >
+                        <input id = "answers" type = "hidden" name= "answers" type="text" >
+                        <input id = "checks" type = "hidden" name= "checks" type="text" >
                     </div>
                     <button id="submit_button" style="border:1px solid rgb(41, 39, 175); margin:2px; border-radius:5px; color:rgb(41, 39, 175); "> Submit </button>
                 </form>
@@ -68,13 +68,26 @@
     const inputResult = document.getElementById('result');
     const inputWrong = document.getElementById('wrong');
 
-    const selectAns = (q) => {
+    //question_mix
+    let index = [0,1,2,3,4];
+    const randomNum = index.sort(()=>Math.random() - 0.5);
+    console.log(randomNum);
 
-        //퀴즈 문제
+    // 정답을 기록
+    const answers=[];
+    const questions=[];
+    let i=0;
+    for(i; i<5; i++){
+        answers.push(word_quiz[randomNum[i]].pk)
+        questions.push(word_quiz[randomNum[i]].fields.meaning)
+    }
+    console.log(answers,questions);
+
+    const checks=[];
+
+    const selectAns = (q) => {
         let question = document.getElementById('question');
-        question.textContent = q.meaning;
-        
-        let answer = q.name //정답을 answer 변수에 담음
+        question.textContent = questions[page];
 
         let options = document.querySelectorAll(".option");
         options.forEach(function(element,index){
@@ -92,65 +105,37 @@
                     else{check.style.color = "black";}
                 }
                 check=element;
-                console.log(check);
-                // 선택한 element의 name을 choice로 옮김
-                choice = word_quiz[index].fields.name;
-                console.log(choice);
-                // 선택한 element를 blue 색상으로 바꾸기
                 element.style.color = "blue";
-                console.log("here");
-                
-                if(answer == choice)
-                {
-                    isTrue = true;
-                    console.log('correct!');
-                }
-                else{
-                    isTrue = false;
-                    console.log('wrong!');
-                    wrong[page]=answer;
-                    console.log(wrong[page],page);
-                }
+                console.log(index);
+                checks[page] = word_quiz[index].pk;
+        
             });
             
         })
 
-    }
+    }       
 
-    let wrongs=",";
     const submit = () => {
-
-            console.log("score");
-            if(isTrue == true)
-            {
-                score++;
-            }
-            else{
-                console.log(wrongs);
-                console.log(wrong[page]);
-                console.log(wrongs+wrong[page]+",");
-                wrongs = wrongs+wrong[page]+",";
-                console.log(wrongs);
-            }
-                
             page++;
-            console.log(page,score);
+            console.log(page);
             if(page==5)
             {
-                //input값에 전송할 result값 저장
-                inputResult.value = score;
+                console.log(checks);
+                console.log(answers);
+                document.getElementById('answers').value = answers;
+                document.getElementById('checks').value = checks;
                 nextButton.style.display = 'none';
                 submitButton.style.display = "block";
-                inputWrong.value = wrongs;
             }
             else{
+                
                 console.log('page:',page);
-                selectAns(word_quiz[page].fields);
+                selectAns(word_quiz[page]);
             }
             
     }
 
-    if(page==0) selectAns(word_quiz[0].fields);
+    if(page==0) selectAns(word_quiz[0]);
     //EventListener
     nextButton.addEventListener('click',submit);
 

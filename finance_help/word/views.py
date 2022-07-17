@@ -1,3 +1,4 @@
+from multiprocessing.connection import answer_challenge
 from unicodedata import name
 from django.shortcuts import render, redirect
 import random
@@ -99,36 +100,44 @@ def result(request):
 
     if request.method == "POST":
 
-        result = request.POST["result"]
-        wrongs = request.POST["wrong"]
-        print(result)
-        print(wrongs)
-
-        wrongs=wrongs.strip(",")
-        wrongs=wrongs.split(",")
-        print(wrongs)
+        answers = request.POST["answers"]
+        checks = request.POST["checks"]
+        answers=answers.split(",")
+        checks=checks.split(",")
+        print(answers)
+        print(checks)
 
         wrong = Wrong()
         word = WORD
 
         all_word_board = word.objects.all()
-        
-        if int(result)!=5:
-            print(result)
-            for i in wrongs:
-                wrong_word = all_word_board.get(name = i)
-                print(wrong_word)
-                wrong.quiz = wrong_word
-                wrong.save()
 
-        #모든 wrong_word board를 10개씩 한페이지에서 출력
+        corrects=[]
+        wrongs=[]
 
+        for i in range(0,5):
+            if answers[i]==checks[i]:
+                corrects.append(int(answers[i]))
+            else:
+                wrongs.append(int(answers[i]))
+
+        print(corrects, wrongs)
+
+        wrong_words=[]
+        for i in wrongs:
+            wrong_word = all_word_board.get(id=i)
+            wrong.quiz = wrong_word
+            wrong.save()
+            wrong_words.append(all_word_board.get(id=i).name)
+
+        # #모든 wrong_word board를 10개씩 한페이지에서 출력
+        print("!!!=>",wrong_words)
         res_data = {}
-        if(int(result)==5):
-            res_data['score'] = "모두 정답입니다><"
+        if len(wrongs):
+            res_data['score'] = str(len(corrects))+"개 정답입니다!"
+            res_data['wrongs'] = wrong_words
         else:
-            res_data['score'] = result+"개 정답입니다!"
-            res_data['wrongs'] = wrongs
+            res_data['score'] = "모두 정답입니다><"
 
         return render(request,'word/result.html',res_data)
 
