@@ -6,6 +6,7 @@ class WORD(models.Model):
     meaning = models.CharField(max_length=500, verbose_name="단어뜻")
     id = models.AutoField(primary_key=True)
     quiz = models.BooleanField(default = False)
+    quiz_meaning = models.CharField(max_length=500, verbose_name="퀴즈뜻", blank = True)
 
     class Meta:
         db_table = "WORD_board"
