@@ -7,6 +7,7 @@ sys.path.append('C:\\project\\finance\\finance_help\\word')
 from word.models import WORD,Wrong
 from .crawling import crawling
 from django.db.models import Max
+from .quiz_list import quiz_list
 
 
 def list(request):
@@ -83,6 +84,10 @@ def quiz(request):
         quiz_data = all_word_board.filter(quiz = True)
 
         mix_quiz = quiz_data.order_by('?')[:5]
+        
+        temp = quiz_list()
+        print("===============>>>>",temp) 
+        # 퀴즈속에 문제답이 있는 경우가 있고 이를 처리하기 위해 만들어놓은 함수를 적용시킨다.
 
         res_data={
         "quiz_data": mix_quiz,
