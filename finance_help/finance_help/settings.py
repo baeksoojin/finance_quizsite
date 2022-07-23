@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'main',
     'finance_help',
     'word',
+    'Account',
     
 ]
 
@@ -144,3 +145,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+#user model 정의
+AUTH_USER_MODEL='Account.User'

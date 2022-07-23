@@ -36,12 +36,12 @@ words = words.reset_index(drop=True)
 print(words.head())
 sql_rows = []
 for i in range(0,len(words)):
-    sql_row = (words['word'][i],words['meaning'][i],0)
+    sql_row = (words['word'][i],words['meaning'][i],0,'Nan')
     sql_rows.append(sql_row)
 
 print(sql_rows)
 
-insert_words = """insert into WORD_board(name,meaning,quiz) values (%s, %s, %s)"""
+insert_words = """insert into WORD_board(name,meaning,quiz,quiz_meaning) values (%s, %s, %s, %s)"""
 # curs.executemany(insert_words,sql_rows)
 conn.commit()
 conn.close()

@@ -4,7 +4,7 @@
 
 <style>
     .table{
-        width :1000px;
+        width :1050px;
         text-align: center;
         margin-left:auto;
         margin-right:auto;
@@ -25,14 +25,14 @@
         <table class = "table table-hover text-center"  style="color:black;">
             <thead class="thead-dark">
                 <tr>
-                    <td style="font-size: 30px;"><strong>단어명</strong></td>
-                    <td style="font-size: 30px;"> <strong>뜻</strong></td>
+                    <td style="font-size: 25px;"><strong>단어명</strong></td>
+                    <td style="font-size: 25px;"> <strong>뜻</strong></td>
                 </tr>
             </thead>
             <tbody style="color :rgb(4, 2, 17)">
                 {% for data in random_data%}
                 <tr>            
-                    <td style="color: #013289">{{data.name}}</td>
+                    <td style="width:30%; color: #013289">{{data.name}}</td>
                     <td style="color: rgb(27, 29, 34);">{{data.meaning}}</td>
                 </tr>
                 {% endfor %}

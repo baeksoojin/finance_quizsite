@@ -79,7 +79,7 @@
     let i=0;
     for(i; i<5; i++){
         answers.push(word_quiz[randomNum[i]].pk)
-        if(word_quiz[randomNum[i]].fields.quiz_meaning==''){
+        if(word_quiz[randomNum[i]].fields.quiz_meaning=='' || word_quiz[randomNum[i]].fields.quiz_meaning=='Nan' ){
             console.log(word_quiz[randomNum[i]].fields.meaning);
             questions.push(word_quiz[randomNum[i]].fields.meaning)
         }
